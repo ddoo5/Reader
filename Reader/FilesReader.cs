@@ -1,16 +1,13 @@
 ﻿using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
-using DocumentFormat.OpenXml;
 using System.Text;
 using DocumentFormat.OpenXml.Packaging;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 public class FilesReader
 {
-	public static string WordRead(string pathWord)
-	{
+	public static string WordRead(string pathWord)     //add select pages
+    {
 		string text = "";
 
 		using (WordprocessingDocument document = WordprocessingDocument.Open(pathWord, true))
@@ -22,7 +19,7 @@ public class FilesReader
 	}
 
 
-	public static string PdfRead(string pathPDF)
+	public static string PdfRead(string pathPDF)   //add select pages
 	{
 		using (PdfReader reader = new PdfReader(pathPDF))
 		{
