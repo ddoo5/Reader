@@ -138,27 +138,33 @@ namespace Reader
 
         public static void WordEnterLogic()
         {
-            string link = Console.ReadLine();
-
-            if(File.Exists(link) == true)
+            while (true)
             {
-                TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+                string link = Console.ReadLine();
 
-                UI.WriteReadingFormat();
-
-                int choose = Convert.ToInt32(Console.ReadLine());
-
-                string textFromFile = FilesReader.WordRead(link);
-
-                while (true)
+                if (File.Exists(link) == true)
                 {
+                    TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+
+                    UI.WriteReadingFormat();
+
+                    int choose = Convert.ToInt32(Console.ReadLine());
+
+                    string textFromFile = FilesReader.WordRead(link);
+
                     switch (choose)
                     {
                         case 1:
-
+                            TextVoiceReader.Speak(textFromFile);
                             break;
                         case 2:
+                            TextVoiceReader.Speak("Сохранение займет некоторое время");
 
+                            TextVoiceReader.Save(textFromFile);
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Файл сохранен");
+                            Console.ResetColor();
                             break;
                         default:
                             TextVoiceReader.Speak("Выберите из предложенных вариантов");
@@ -171,32 +177,46 @@ namespace Reader
 
         public static void PDFEnterLogic()
         {
-            string link = Console.ReadLine();
-
-            if (File.Exists(link) == true)
+            while (true)
             {
-                TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+                string link = Console.ReadLine();
 
-                UI.WriteReadingFormat();
-
-                int choose = Convert.ToInt32(Console.ReadLine());
-
-                string textFromFile = FilesReader.PdfRead(link);
-
-                while (true)
+                if (File.Exists(link) == true)
                 {
+                    TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+
+                    UI.WriteReadingFormat();
+
+                    int choose = Convert.ToInt32(Console.ReadLine());
+
+                    string textFromFile = FilesReader.PdfRead(link);
+
                     switch (choose)
                     {
                         case 1:
                             TextVoiceReader.Speak(textFromFile);
                             break;
                         case 2:
+                            TextVoiceReader.Speak("Сохранение займет некоторое время");
+
                             TextVoiceReader.Save(textFromFile);
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Файл сохранен");
+                            Console.ResetColor();
                             break;
                         default:
                             TextVoiceReader.Speak("Выберите из предложенных вариантов");
                             break;
                     }
+                }
+                else
+                {
+                    TextVoiceReader.Speak("Я не нашла этот файл. Попробуйте еще раз и перепровверьте свой ввод");
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(link);
+                    Console.ResetColor();
                 }
             }
         }

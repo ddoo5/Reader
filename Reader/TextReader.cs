@@ -46,9 +46,10 @@ namespace Reader
             synthesizer.SelectVoice("Umka");
             synthesizer.Rate = 1;    //add speed settings   -4-i drunk today        1-normal speed   5-fast   7-too fast   10-what???
             synthesizer.Volume = 80;    //add volume settings
-            synthesizer.SetOutputToDefaultAudioDevice();
 
-            synthesizer.SetOutputToWaveFile(@"..\HERE.wav");
+            synthesizer.SetOutputToWaveFile("HERE.wav");
+
+            synthesizer.Speak(text);
         }
 
 
