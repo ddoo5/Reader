@@ -22,7 +22,7 @@ namespace Reader
             {
                 day = "Good evening";
             }
-            if (time.Hour >= 22 && time.Hour < 5)
+            if (time.Hour >= 22 || time.Hour < 5)
             {
                 day = "Доброй ночи";
             }
@@ -44,11 +44,11 @@ namespace Reader
             SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 
             synthesizer.SelectVoice("Umka");
-            synthesizer.Rate = 3;    //add speed settings   -4-i drunk today        1-normal speed   5-fast   7-too fast   10-what???
+            synthesizer.Rate = 2;    //add speed settings   -4-i drunk today        1-normal speed   5-fast   7-too fast   10-what???
             synthesizer.Volume = 80;    //add volume settings
             //synthesizer.AddLexicon();
 
-            synthesizer.SetOutputToWaveFile("HERE.wav");
+            synthesizer.SetOutputToWaveFile("ReaderFile.wav");
 
             synthesizer.Speak(text);
         }

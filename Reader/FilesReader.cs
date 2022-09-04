@@ -2,7 +2,6 @@
 using iTextSharp.text.pdf.parser;
 using System.Text;
 using Reader;
-using System.Diagnostics;
 using Microsoft.Office.Interop.Word;
 
 public class FilesReader
@@ -11,10 +10,11 @@ public class FilesReader
     {
         StringBuilder text = new StringBuilder();
 
+        
         Application word = new Application();
         object miss = System.Reflection.Missing.Value;
         object readOnly = true;
-        Document docs = word.Documents.Open(pathWord, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
+        Document docs = word.Documents.Open(pathWord);
 
 
         if (frompage > 0 && frompage <= docs.Paragraphs.Count - 1)

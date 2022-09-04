@@ -1,4 +1,5 @@
 ﻿using NAudio.Lame;
+using NAudio.MediaFoundation;
 using NAudio.Wave;
 using System.Net;
 
@@ -8,19 +9,25 @@ namespace Reader
     {
         public static void Convert(string url)
         {
-            
-            using (var client = new WebClient())
+            string input = url;
+            string output = input.Substring(0, input.Length - 3) + "mp3";
+            MediaType mediaType = MediaFoundationEncoder.SelectMediaType(AudioSubtypes.MFAudioFormat_MP3, new WaveFormat(44100, 1), 0);
+
+            using (MediaFoundationReader reader = new MediaFoundationReader(input))
             {
-                var file = client.DownloadData(url);
-                var target = new WaveFormat(16000, 32, 2);
-                using (var outPutStream = new MemoryStream())
-                using (var waveStream = new WaveFileReader(new MemoryStream(file)))
-                using (var conversionStream = new WaveFormatConversionStream(target, waveStream))
-                using (var writer = new LameMP3FileWriter(outPutStream, conversionStream.WaveFormat, 32, null))
+                using (var encoder = new MediaFoundationEncoder(mediaType))
                 {
-                    conversionStream.CopyTo(writer);
+                    encoder.Encode(output, reader);
                 }
             }
+        }
+
+
+        public static string Search(string fileName)
+        {
+            DirectoryInfo directory = new(Directory.GetCurrentDirectory());
+            FileInfo[] file = directory.GetFiles(fileName, SearchOption.AllDirectories);
+            return @$"{ file[0].Directory}";
         }
     }
 }

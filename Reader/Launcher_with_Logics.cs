@@ -17,6 +17,8 @@ namespace Reader
                 thread2.Start();
                 Thread.Sleep(19306);
 
+                Console.Clear();
+
                 UI.WriteInstructions();
 
                 UI.WriteChooseFile();
@@ -32,6 +34,7 @@ namespace Reader
             }
             catch(Exception a)
             {
+                Console.CursorVisible = false;
                 TextVoiceReader.Speak("Вы доигрались и у вас теперь возникла ошибка, но так как я плохо говорю по английски, читайте сами, либо обратитесь к разработчику. Вот ссылка на него");
                 Console.WriteLine("Link: https://github.com/ddoo5/Reader\n\n");
 
@@ -45,6 +48,8 @@ namespace Reader
         public static void LogicsForFisrtsChoose()
         {
             int chooseFile = Convert.ToInt32(Console.ReadLine());
+
+            Console.CursorVisible = false;
 
             switch (chooseFile)
             {
@@ -140,6 +145,8 @@ namespace Reader
         {
             while (true)
             {
+                Console.CursorVisible = true;
+
                 string link = Console.ReadLine();
 
                 if (File.Exists(link) == true)
@@ -163,14 +170,17 @@ namespace Reader
                     switch (choose)
                     {
                         case 1:
+                            Console.CursorVisible = false;
+                            Console.Clear();
+
                             TextVoiceReader.Speak(textFromFile);
                             break;
                         case 2:
+                            Console.CursorVisible = false;
+
                             TextVoiceReader.Speak("Сохранение займет некоторое время");
 
-                            //TextVoiceReader.Save(textFromFile);
-
-                            Converter.Convert(@"..\HERE.wav");
+                            TextVoiceReader.Save(textFromFile);
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Файл сохранен");
@@ -181,13 +191,15 @@ namespace Reader
                             break;
                     }
                 }
+                else
+                {
+                    TextVoiceReader.Speak("Я не нашла этот файл. Попробуйте еще раз и перепровверьте свой ввод");
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(link + "\n");
+                    Console.ResetColor();
+                }
             }
-        }
-
-
-        public static void WordPageLogic()
-        {
-
         }
 
 
@@ -195,6 +207,8 @@ namespace Reader
         {
             while (true)
             {
+                Console.CursorVisible = true;
+
                 string link = Console.ReadLine();
 
                 if (File.Exists(link) == true)
@@ -218,12 +232,20 @@ namespace Reader
                     switch (choose)
                     {
                         case 1:
+                            Console.CursorVisible = false;
+                            Console.Clear();
+
                             TextVoiceReader.Speak(textFromFile);
                             break;
                         case 2:
+                            Console.CursorVisible = false;
+
                             TextVoiceReader.Speak("Сохранение займет некоторое время");
 
                             TextVoiceReader.Save(textFromFile);
+
+                            string path = Directory.GetCurrentDirectory() + @"\ReaderFile.wav";
+                            Converter.Convert(path);
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Файл сохранен");
@@ -239,16 +261,11 @@ namespace Reader
                     TextVoiceReader.Speak("Я не нашла этот файл. Попробуйте еще раз и перепровверьте свой ввод");
 
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(link);
+                    Console.WriteLine(link +"\n");
                     Console.ResetColor();
                 }
             }
         }
 
-
-        public static void PDFPageLogic()
-        {
-
-        }
     }
 }

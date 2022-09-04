@@ -26,7 +26,7 @@
             {
                 day = "Good evening";
             }
-            if (time.Hour >= 22 && time.Hour < 5)
+            if (time.Hour >= 22 || time.Hour < 5)
             {
                 day = "Доброй ночи";
             }
@@ -42,7 +42,7 @@
             }
 
             Thread.Sleep(300);
-            Console.Clear();
+            
         }
 
 
@@ -95,5 +95,28 @@
         {
             Console.WriteLine("Введите страницу, на которой я закончу");
         }
+
+
+       /* public static void Reading()
+        {
+            string a = "...";
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            while (true)
+            {
+                Console.Write("Reading");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(a[i]);
+                    Thread.Sleep(100);
+                }
+
+                Console.Clear();
+            }
+
+            Console.ResetColor();
+        }*/
     }
 }
