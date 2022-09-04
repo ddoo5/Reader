@@ -83,5 +83,17 @@
             Console.WriteLine("1) Сейчас");
             Console.WriteLine("2) Позже");
         }
+
+
+        public static void WritePageCoutFrom()
+        {
+            Console.WriteLine("Введите страницу, с которой я должна начать читать");
+        }
+
+
+        public static void WritePageCoutTo()
+        {
+            Console.WriteLine("Введите страницу, на которой я закончу");
+        }
     }
 }

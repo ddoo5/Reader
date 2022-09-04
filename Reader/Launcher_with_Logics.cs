@@ -76,7 +76,7 @@ namespace Reader
                     break;
                 case 1:   //word case
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("\t⍻\n");
+                    Console.WriteLine("\t+\n");
                     TextVoiceReader.Speak("Отлично, теперь ознакомьтесь с примером ввода файла, будьте внимательны!");
                     Console.ResetColor();
 
@@ -87,7 +87,7 @@ namespace Reader
                     break;
                 case 2:     //pdf case
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(" \t⍻\n");
+                    Console.WriteLine(" \t+\n");
                     TextVoiceReader.Speak("Замечательно, теперь ознакомьтесь с примером ввода файла, будьте внимательны!");
                     Console.ResetColor();
 
@@ -144,13 +144,21 @@ namespace Reader
 
                 if (File.Exists(link) == true)
                 {
-                    TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+                    TextVoiceReader.Speak("Я нашла этот файл. Укажите страницы");
+
+                    UI.WritePageCoutFrom();
+                    int pagefrom = Convert.ToInt32(Console.ReadLine());
+
+                    UI.WritePageCoutFrom();
+                    int pageto = Convert.ToInt32(Console.ReadLine());
+
+                    TextVoiceReader.Speak("Отлично: теперь выберите формат");
 
                     UI.WriteReadingFormat();
 
                     int choose = Convert.ToInt32(Console.ReadLine());
 
-                    string textFromFile = FilesReader.WordRead(link);
+                    string textFromFile = FilesReader.WordRead(link, pagefrom, pageto);
 
                     switch (choose)
                     {
@@ -160,7 +168,9 @@ namespace Reader
                         case 2:
                             TextVoiceReader.Speak("Сохранение займет некоторое время");
 
-                            TextVoiceReader.Save(textFromFile);
+                            //TextVoiceReader.Save(textFromFile);
+
+                            Converter.Convert(@"..\HERE.wav");
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Файл сохранен");
@@ -175,6 +185,12 @@ namespace Reader
         }
 
 
+        public static void WordPageLogic()
+        {
+
+        }
+
+
         public static void PDFEnterLogic()
         {
             while (true)
@@ -183,13 +199,21 @@ namespace Reader
 
                 if (File.Exists(link) == true)
                 {
-                    TextVoiceReader.Speak("Я нашла этот файл. Выберите вариант");
+                    TextVoiceReader.Speak("Я нашла этот файл. Укажите страницы");
+
+                    UI.WritePageCoutFrom();
+                    int pagefrom = Convert.ToInt32(Console.ReadLine());
+
+                    UI.WritePageCoutFrom();
+                    int pageto = Convert.ToInt32(Console.ReadLine());
+
+                    TextVoiceReader.Speak("Отлично: теперь выберите формат");
 
                     UI.WriteReadingFormat();
 
                     int choose = Convert.ToInt32(Console.ReadLine());
 
-                    string textFromFile = FilesReader.PdfRead(link);
+                    string textFromFile = FilesReader.PdfRead(link, pagefrom, pageto);
 
                     switch (choose)
                     {
@@ -219,6 +243,12 @@ namespace Reader
                     Console.ResetColor();
                 }
             }
+        }
+
+
+        public static void PDFPageLogic()
+        {
+
         }
     }
 }
